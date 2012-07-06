@@ -1,0 +1,14 @@
+%h2 New Loan
+= form_for @loan, :html => { :class => "form-horizontal" } do |f|
+  %fieldset
+    = f.error_messages
+    .control-group
+      = f.label :from, :class => "control-label"
+      .controls
+        .input-xlarge= f.text_field :from
+    .control-group
+      = f.label :amount, :class => "control-label"
+      .controls
+        .input-xlarge= f.text_field :amount
+    .form-actions
+      = f.submit :class => 'btn btn-primary'
