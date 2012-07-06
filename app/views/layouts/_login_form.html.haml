@@ -1,0 +1,6 @@
+= form_for resource, :as => resource_name, 
+                     :url => session_path(resource_name), 
+                     :html => { :class => "navbar-search pull-right" } do |f|
+  = f.email_field :email, :class => "span2 search-query", :placeholder => "Login"
+  = f.password_field :password, :class => "span2 search-query", :placeholder => "Password"
+  = f.submit "Sign In", :class => "btn"

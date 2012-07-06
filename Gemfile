@@ -27,3 +27,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'database_cleaner'
 end
+
+gem 'devise', '~> 1.4.3'
