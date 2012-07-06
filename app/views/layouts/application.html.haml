@@ -10,7 +10,14 @@
       .navbar-inner
         .container-fluid
           = link_to "Loanr", root_path, :class => "brand"
-          = render "layouts/login_form"
+          - if user_signed_in?
+            .nav-collapse.collapse.pull-right
+              %ul.nav
+                %li= link_to "Sign Out", destroy_user_session_path, :method => :delete
+                %li.divider-vertical
+                %li= link_to "#{current_user.username.nil? ? current_user.email : current_user.username}", "#"
+          - else
+            = render "layouts/login_form"
     .row
       .container
         - flash.each do |key, value|
