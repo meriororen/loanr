@@ -18,8 +18,15 @@ Then /^I should see "(.*?)"$/ do |arg1|
   page.should have_content(arg1)
 end
 
+Then /^I should see "(.*?)" within "([^\"].*)"$/ do |content, selector|
+  page.should have_css(selector, :text => content)
+end
+
 Given /^I have the following loans:$/ do |table|
   table.hashes.each do |attributes|
-    Loan.create!(attributes)
+    loaner = attributes.delete("from")
+    @loan = Loan.create!(attributes)
+    loaner_id = User.find_by_email!(loaner)
+    @loan.loaner_id = loaner_id if loaner_id
   end
 end

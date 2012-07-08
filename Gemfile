@@ -30,3 +30,5 @@ end
 
 gem 'devise', '~> 1.4.3'
 gem 'launchy'
+gem 'validates_existence', ">= 0.4"
+

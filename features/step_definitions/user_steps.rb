@@ -1,8 +1,6 @@
 Given /^there are the following users:$/ do |table|
   table.hashes.each do |attributes|
-    username = attributes.delete("username")
     @user = User.create!(attributes)
-    @user.username = username if username
   end
 end
 

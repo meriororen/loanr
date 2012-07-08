@@ -1,0 +1,9 @@
+%h2 List of users
+%hr
+%ul#users
+  - (@users - [current_user]).each do |user|
+    %li{ :id => "user_#{user.username}" }
+      = user.username 
+      - unless current_user.is_a_friend_of(user)
+        = link_to "Add Friend", friendships_path(:friend_id => user), :method => :post
+

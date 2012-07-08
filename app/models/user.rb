@@ -1,10 +1,22 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
+  has_many :loans_as_borrower, :foreign_key => :borrower_id, :class_name => "Loan"
+  has_many :loans_as_loaner, :foreign_key => :loaner_id, :class_name => "Loan"
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
+  has_many :friendships
+  has_many :friends, :through => :friendships
+
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
+
+  def is_a_friend_of(friend)
+    if (self.friendships.find(:all, :conditions => ['friend_id = ?', friend.id]).empty? ||
+       self.inverse_friendships.find(:all, :conditions => ['user_id = ?', friend.id]).empty?)
+      false
+    else
+      true
+    end
+  end
 end
