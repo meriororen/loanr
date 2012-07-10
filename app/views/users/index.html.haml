@@ -4,6 +4,8 @@
   - (@users - [current_user]).each do |user|
     %li{ :id => "user_#{user.username}" }
       = user.username 
-      - unless current_user.is_a_friend_of(user)
+      - if are_friends(current_user, user)
+        = link_to "Remove Friend", :controller => "friendship", :friend_id => user, :method => :delete
+      - else
         = link_to "Add Friend", friendships_path(:friend_id => user), :method => :post
 
