@@ -2,10 +2,13 @@
 %hr
 %ul#users
   - (@users - [current_user]).each do |user|
-    %li{ :id => "user_#{user.username}" }
+    %li{ :id => "user_#{user.id}" }
       = user.username 
       - if are_friends(current_user, user)
-        = link_to "Remove Friend", :controller => "friendship", :friend_id => user, :method => :delete
+        %span.status
+          [ Your friend ]
+        = link_to "Remove Friend", remove_friendship_path(user), :method => :delete, :remote => true
       - else
+        %span.status
+          [ Not yet friend ]
         = link_to "Add Friend", friendships_path(:friend_id => user), :method => :post
-

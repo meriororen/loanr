@@ -7,7 +7,11 @@ Loanr::Application.routes.draw do
     :to => 'users#index',
     :as => :list_of_users
 
-  resources :friendships
+  resources :friendships do
+    member do
+      delete :remove
+    end
+  end
 
   resources :loans
   root :to => "loans#index"

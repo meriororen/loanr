@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :find_friend, :only => [:create]
 
   def create
@@ -17,8 +18,14 @@ class FriendshipsController < ApplicationController
     end
   end
 
-  def destroy
-    
+  def remove
+    sql = "SELECT * FROM friendships WHERE 
+          user_id = #{current_user.id} AND friend_id = #{params[:id]} LIMIT 1"
+    @friendship = Friendship.find_by_sql(sql).first
+    @friendship.destroy
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
