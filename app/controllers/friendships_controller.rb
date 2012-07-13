@@ -6,14 +6,14 @@ class FriendshipsController < ApplicationController
     @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
     if already_friends(current_user, @friend)
       flash[:notice] = "You are already friends."
-      redirect_to list_of_users_path
+      redirect_to users_index_path
     else
       if @friendship.save
         flash[:success] = "Friendship request sent."
-        redirect_to list_of_users_path
+        redirect_to users_index_path
       else
         flash[:error] = "Friendship request not sent."
-        redirect_to list_of_users_path
+        redirect_to users_index_path
       end
     end
   end
@@ -23,9 +23,8 @@ class FriendshipsController < ApplicationController
           user_id = #{current_user.id} AND friend_id = #{params[:id]} LIMIT 1"
     @friendship = Friendship.find_by_sql(sql).first
     @friendship.destroy
-    respond_to do |format|
-      format.js
-    end
+    flash[:success] = "Friend removed"
+    redirect_to users_index_path
   end
 
   private

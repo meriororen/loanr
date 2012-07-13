@@ -14,9 +14,8 @@ Feature: Remove a friend
     Given I am on the homepage
     When I follow "List of users"
 
-  @javascript
   Scenario: Users that are friends can be removed
     When I follow the "Remove Friend" link for "abakashi"
-    Then it should indicate "[ No Longer Friend ]" for "abakashi"
+    Then it should indicate "[ Not yet friend ]" for "abakashi"
 
 

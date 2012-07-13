@@ -7,7 +7,7 @@
       - if are_friends(current_user, user)
         %span.status
           [ Your friend ]
-        = link_to "Remove Friend", remove_friendship_path(user), :method => :delete, :remote => true
+        = link_to "Remove Friend", remove_friendship_path(user), :method => :delete
       - else
         %span.status
           [ Not yet friend ]
