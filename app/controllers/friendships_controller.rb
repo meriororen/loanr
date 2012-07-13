@@ -19,9 +19,12 @@ class FriendshipsController < ApplicationController
   end
 
   def remove
-    sql = "SELECT * FROM friendships WHERE 
-          user_id = #{current_user.id} AND friend_id = #{params[:id]} LIMIT 1"
-    @friendship = Friendship.find_by_sql(sql).first
+    p current_user.friendship_list
+    p current_user.id
+    p params[:id]
+    @friendship = current_user.friendship_list.find do 
+      |f| f.friend_id == params[:id].to_i || f.user_id == params[:id].to_i
+    end
     @friendship.destroy
     flash[:success] = "Friend removed"
     redirect_to users_index_path
@@ -34,6 +37,6 @@ class FriendshipsController < ApplicationController
   end
 
   def already_friends(user, friend)
-    user.friends.include?(friend) || friend.friends.include?(user)
+    user.friendlist.include?(friend)
   end
 end

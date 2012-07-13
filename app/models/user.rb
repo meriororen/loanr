@@ -11,12 +11,23 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
+  validates_presence_of :username, :email
+
+  def friendlist
+    list = []
+    list << self.friends
+    list << self.inverse_friends
+    list.flatten
+  end
+
+  def friendship_list
+    flist = []
+    flist << self.friendships
+    flist << self.inverse_friendships
+    flist.flatten
+  end
+
   def is_a_friend_of(friend)
-    if (self.friendships.find(:all, :conditions => ['friend_id = ?', friend.id]).empty? ||
-       self.inverse_friendships.find(:all, :conditions => ['user_id = ?', friend.id]).empty?)
-      false
-    else
-      true
-    end
+    self.friendlist.include?(friend)
   end
 end
