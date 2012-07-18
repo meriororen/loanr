@@ -19,9 +19,6 @@ class FriendshipsController < ApplicationController
   end
 
   def remove
-    p current_user.friendship_list
-    p current_user.id
-    p params[:id]
     @friendship = current_user.friendship_list.find do 
       |f| f.friend_id == params[:id].to_i || f.user_id == params[:id].to_i
     end

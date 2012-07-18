@@ -1,0 +1,10 @@
+- users.each do |user|
+  .span2
+    #lusers
+      %h3= user.username
+      %ul
+        - loans.each do |loan|
+          - if loan.loaner_id == user.id
+            %li= loan.amount 
+        %li{ :id => "user_#{user.id}_add_loan" }
+          = link_to "Add Loan", new_loan_path(:loaner => user)

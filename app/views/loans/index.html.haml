@@ -1,6 +1,6 @@
 .div6
-  = link_to "New Loan", new_loan_path
-  |
   = link_to "List of users", users_index_path
   %h2 List of loans
   %hr
+  = render :partial => "users/user",
+           :locals => { :loans => @loans, :users => current_user.friendlist }

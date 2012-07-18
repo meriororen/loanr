@@ -14,8 +14,8 @@ Feature: Making a friend
     When I follow "List of users"
 
   Scenario: Seeing a list of users
-    Then I should see "abakashi" within "ul#users"
-    And I should see "sinji" within "ul#users"
+    Then I should see the text "abakashi" within "ul#users"
+    And I should see the text "sinji" within "ul#users"
 
   Scenario: Adding a friend
     When I follow the "Add Friend" link for "abakashi"

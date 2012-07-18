@@ -6,13 +6,12 @@ class Loan < ActiveRecord::Base
 
   belongs_to :borrower, :foreign_key => :borrower_id, :class_name => "User"
   belongs_to :loaner, :foreign_key => :loaner_id, :class_name => "User"
+
   validate :loaner_is_not_borrower
 
   private
 
   def loaner_is_not_borrower
-    if borrower_id == loaner_id
-      errors.add(:from, "You cannot be in debt with yourself")
-    end
+      errors.add(:from, "You cannot be in debt with yourself") if borrower_id == loaner_id
   end
 end

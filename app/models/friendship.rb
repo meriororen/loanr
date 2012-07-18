@@ -5,6 +5,8 @@ class Friendship < ActiveRecord::Base
   
   validate :not_himself
 
+  has_many :loans
+
   private
 
   def not_himself

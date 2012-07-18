@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
   def is_a_friend_of(friend)
     self.friendlist.include?(friend)
   end
+
+  def to_s
+    self.username
+  end
 end
